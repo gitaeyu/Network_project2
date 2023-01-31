@@ -66,18 +66,43 @@ class MultiChatServer:
         with con:
             with con.cursor() as cur:
                 if self.exit_user_number == 1:
-                    cur.execute(f"update  from game_room_people set user_1 = '{exit_room_info[2]}',\
+                    cur.execute(f"update game_room_people set user_1 = '{exit_room_info[2]}',\
                     user_2 = '{exit_room_info[3]}', user_3 ='{exit_room_info[4]}' ,user_4 ='대기' \
                     where Number = {exit_room_info[0]}")
                 elif self.exit_user_number == 2:
-                    cur.execute(f"update  from game_room_people set user_2 = '{exit_room_info[3]}',\
+                    cur.execute(f"update game_room_people set user_2 = '{exit_room_info[3]}',\
                     user_3 = '{exit_room_info[4]}', user_4 ='대기' where Number = {exit_room_info[0]}")
-
+                elif self.exit_user_number == 3:
+                    cur.execute(f"update game_room_people set \
+                    user_3 = '{exit_room_info[4]}', user_4 ='대기' where Number = {exit_room_info[0]}")
+                elif self.exit_user_number == 4:
+                    cur.execute(f"update game_room_people set user_4 ='대기' where Number = {exit_room_info[0]}")
+                cur.execute("delete from game_room_people where user_1 = '대기'")
                 cur.execute("delete a from game_room_list as a left outer join game_room_people as b \
                             on a.Number = b.Number where b.Number is null")
+                cur.execute(f"select * from game_room_people where Number = {exit_room_info[0]}")
+                selected_room_info = cur.fetchall()
+                cur.execute(
+                    f"update game_room_list set Current_people = Current_people - 1 where Number = {exit_room_info[0]}")
+                cur.execute(f"select * from game_room_list")
+                rows = cur.fetchall()
                 con.commit()
-
-
+                tempdata = json.dumps(rows)
+                senddata = tempdata + "000009"
+                self.final_received_message = senddata
+                self.send_all_clients(c_socket)
+                if selected_room_info != () :
+                    tempdata = json.dumps(selected_room_info[0])
+                    gr_info = tempdata + "000010"
+                    i = 0
+                    for id in self.idlist:  # 목록에 있는 모든 소켓에 대해
+                        print(self.clients)
+                        if id == selected_room_info[0][1] or selected_room_info[0][2] or selected_room_info[0][1]:
+                            client = self.clients[i]
+                            socket = client[0]
+                            socket.sendall(gr_info.encode())
+                        i += 1
+                con.commit()
     def client_join_room(self, c_socket):
         print(self.idlist)
         print(self.clients)
@@ -109,25 +134,17 @@ class MultiChatServer:
         # 채팅방에 있는 사람에게 정보를 전달함
         i = 0
         for id in self.idlist:  # 목록에 있는 모든 소켓에 대해
+            print(id)
             print(self.clients)
-            if id == selected_room_info[0][1] or selected_room_info[0][2] or selected_room_info[0][1]:
+            print(selected_room_info)
+            if id == selected_room_info[0][1] or id == selected_room_info[0][2] or id == selected_room_info[0][3]\
+                    or id == selected_room_info[0][4]:
+                print(2)
                 client = self.clients[i]
                 socket = client[0]
                 socket.sendall(gr_info.encode())
             i += 1
 
-    # def update_room_member_info(self):
-    #     con = pymysql.connect(host='10.10.21.112', user="root3", password="123456789", db='multi_network_server',
-    #                           charset='utf8')
-    #     with con:
-    #         with con.cursor() as cur:
-    #             sql = f"Insert into game_room_people (Number,user_1,user_2,user_3,user_4) values \
-    #                     ({self.id_num},'{self.user_name}','{date}','{self.user_name}{date}')\
-    #                     on duplicate key update Name = '{self.user_name}', Date = '{date}'"
-    #             cur.execute(sql)
-    #             cur.execute("select * from game_room_list")
-    #             rows = cur.fetchall()
-    #             con.commit()
 
     def create_room_save_db(self, c_socket):
         roominfo = json.loads(self.recv_signal.decode()[:-6])
@@ -273,7 +290,7 @@ if __name__ == "__main__":
     Multi_server = MultiChatServer()
 
     # 호스트와 포트를 localhost = 127.0.0.1 / 55000으로 지정해준다.
-    HOST, PORT = "10.10.21.103", 9048
+    HOST, PORT = "127.0.0.1", 9048
     # HOST와 PORT를 가지고 ThreadTCPServer를 생성 !
     with ThreadedTCPServer((HOST, PORT), MyTCPHandler) as server:
         # 계속해서 서버 유지

@@ -48,6 +48,19 @@ class Main(QMainWindow, form_class):
         self.idlist=[]
         self.gameidlist=[]
         self.join_game_btn.clicked.connect(self.join_fu_game)
+        self.show_main6.clicked.connect(self.exit_game_room)
+    def exit_game_room(self):
+        roomnumber = self.follow_up_rm_number.text()
+        user_1id = self.user_1_label.text()
+        user_2id = self.user_2_label.text()
+        user_3id = self.user_3_label.text()
+        user_4id = self.user_4_label.text()
+
+        exit_room_info = [roomnumber,user_1id,user_2id,user_3id,user_4id,self.id]
+        tempdata = json.dumps(exit_room_info)
+        message = tempdata + "000013"
+        self.stackedWidget.setCurrentIndex(4)
+        self.client_socket.send(message.encode())
 
     def create_rm_client(self):
         createpop = Popup(self)
@@ -57,6 +70,7 @@ class Main(QMainWindow, form_class):
                                      QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         if reply == QMessageBox.Yes:
             e.accept()
+            self.exit_game_room()
             self.client_socket.send("!@$#@#Socke@$close".encode())
             print('Window closed')
         else:
@@ -121,13 +135,13 @@ class Main(QMainWindow, form_class):
                     self.tableWidget.setItem(i, 0, QTableWidgetItem(str(self.idlist[i])))
             elif signal[-6:]  == "000009" :
                 self.roomlist = json.loads(signal[:-6])
-                print(self.roomlist)
-                self.tableWidget_4.setRowCount(len(self.roomlist))
-                self.tableWidget_4.setColumnCount(len(self.roomlist[0]))
-                for i in range(len(self.roomlist)):
-                    for j in range(len(self.roomlist[i])):
-                        # i번째 줄의 j번째 칸에 데이터를 넣어줌
-                        self.tableWidget_4.setItem(i, j, QTableWidgetItem(str(self.roomlist[i][j])))
+                if self.roomlist != [] :
+                    self.tableWidget_4.setRowCount(len(self.roomlist))
+                    self.tableWidget_4.setColumnCount(len(self.roomlist[0]))
+                    for i in range(len(self.roomlist)):
+                        for j in range(len(self.roomlist[i])):
+                            # i번째 줄의 j번째 칸에 데이터를 넣어줌
+                            self.tableWidget_4.setItem(i, j, QTableWidgetItem(str(self.roomlist[i][j])))
             elif signal[-6:]  == "000010" :
                 self.rminfolist = json.loads(signal[:-6])
                 self.follow_up_game_room_refresh()
@@ -159,7 +173,7 @@ class Main(QMainWindow, form_class):
 
 #!@!@#@!
 if __name__ == "__main__":
-    ip, port = "10.10.21.103", 9048
+    ip, port = "127.0.0.1", 9048
 
 
     app = QApplication(sys.argv)
