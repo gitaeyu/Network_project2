@@ -24,9 +24,11 @@ class Popup(QDialog,form_class2):
         name = self.room_naming_lineEdit.text()
         gamekind = self.game_kind_cb.currentText()
         numpeople = self.num_people_cb.currentText()
-        roominfo = [name,gamekind,numpeople]
+        id = self.parent.id
+        roominfo = [name,gamekind,numpeople,id]
         tempdata = json.dumps(roominfo)
         message = tempdata + "000008"
+        self.parent.stackedWidget.setCurrentIndex(6)
         self.parent.client_socket.send(message.encode())
         self.close()
 
@@ -45,6 +47,7 @@ class Main(QMainWindow, form_class):
         # self.follow_up_invite_btn.clicked.connect(self.invite_user)
         self.idlist=[]
         self.gameidlist=[]
+        self.join_game_btn.clicked.connect(self.join_fu_game)
 
     def create_rm_client(self):
         createpop = Popup(self)
@@ -55,7 +58,6 @@ class Main(QMainWindow, form_class):
         if reply == QMessageBox.Yes:
             e.accept()
             self.client_socket.send("!@$#@#Socke@$close".encode())
-            self.threadSignal = False
             print('Window closed')
         else:
             e.ignore()
@@ -97,12 +99,13 @@ class Main(QMainWindow, form_class):
         '''
         데이터 수신 Thread를 생성하고 시작한다.
         '''
-        self.threadSignal=True
+
         self.t=Thread(target=self.signal_check,args=(self.client_socket,))
+        self.t.daemon = True
         self.t.start()
 
     def signal_check(self,so):
-        while self.threadSignal:
+        while True:
             buf = so.recv(1024)
             print(buf)
             signal = buf.decode()
@@ -125,13 +128,33 @@ class Main(QMainWindow, form_class):
                     for j in range(len(self.roomlist[i])):
                         # i번째 줄의 j번째 칸에 데이터를 넣어줌
                         self.tableWidget_4.setItem(i, j, QTableWidgetItem(str(self.roomlist[i][j])))
-            # elif signal[-6:] =='846574' :
-            #     self.gameidlist.append(signal[:-6])
-            #     print(self.gameidlist)
-            #     self.tableWidget_2.setRowCount(len(self.gameidlist))
-            #     self.tableWidget_2.setColumnCount(1)
-            #     for i in range(len(self.gameidlist)):
-            #         self.tableWidget_2.setItem(i, 0, QTableWidgetItem(str(self.gameidlist[i])))
+            elif signal[-6:]  == "000010" :
+                self.rminfolist = json.loads(signal[:-6])
+                self.follow_up_game_room_refresh()
+
+
+    def join_fu_game(self):
+        selected_rm_number = self.tableWidget_4.item(self.tableWidget_4.currentRow(), 0).text()
+        selected_people = self.tableWidget_4.item(self.tableWidget_4.currentRow(), 2).text()
+        max_people = self.tableWidget_4.item(self.tableWidget_4.currentRow(), 3).text()
+        if selected_people == max_people :
+            QMessageBox.critical(self, "인원 꽉참", "방을 만들거나 다른 방에 접속해주세요")
+            return
+        select_rm_info = [selected_rm_number,selected_people,self.id]
+        tempdata = json.dumps(select_rm_info)
+        message = tempdata + "000011"
+        self.stackedWidget.setCurrentIndex(6)
+
+        self.client_socket.send(message.encode())
+
+
+    def follow_up_game_room_refresh(self):
+        self.follow_up_rm_number.setText(str(self.rminfolist[0]))
+        self.user_1_label.setText(self.rminfolist[1])
+        self.user_2_label.setText(self.rminfolist[2])
+        self.user_3_label.setText(self.rminfolist[3])
+        self.user_4_label.setText(self.rminfolist[4])
+
 
 
 #!@!@#@!

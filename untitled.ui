@@ -408,7 +408,7 @@
     </widget>
    </widget>
    <widget class="QWidget" name="page_3">
-    <widget class="QPushButton" name="pushButton_4">
+    <widget class="QPushButton" name="join_game_btn">
      <property name="geometry">
       <rect>
        <x>660</x>
@@ -525,6 +525,12 @@
        <height>551</height>
       </rect>
      </property>
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
+     <attribute name="verticalHeaderVisible">
+      <bool>false</bool>
+     </attribute>
      <column>
       <property name="text">
        <string>방 번호</string>
@@ -537,7 +543,12 @@
      </column>
      <column>
       <property name="text">
-       <string>인원</string>
+       <string>현재 인원</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>최대 인원</string>
       </property>
      </column>
      <column>
@@ -648,7 +659,7 @@
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;&lt;span style=&quot; font-size:72pt;&quot;&gt;제시어&lt;br/&gt;&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_15">
+    <widget class="QLabel" name="user_1_label">
      <property name="geometry">
       <rect>
        <x>40</x>
@@ -667,7 +678,7 @@ border-radius:5px;
       <string>User_1</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_16">
+    <widget class="QLabel" name="user_2_label">
      <property name="geometry">
       <rect>
        <x>250</x>
@@ -686,7 +697,7 @@ border-radius:5px;
       <string>User_2</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_17">
+    <widget class="QLabel" name="user_3_label">
      <property name="geometry">
       <rect>
        <x>460</x>
@@ -705,7 +716,7 @@ border-radius:5px;
       <string>User_3</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_18">
+    <widget class="QLabel" name="user_4_label">
      <property name="geometry">
       <rect>
        <x>670</x>
@@ -781,6 +792,19 @@ border-radius:5px;
      </property>
      <property name="text">
       <string>초대하기</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="follow_up_rm_number">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>20</y>
+       <width>56</width>
+       <height>12</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>방 번호</string>
      </property>
     </widget>
    </widget>
