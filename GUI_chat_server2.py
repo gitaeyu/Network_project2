@@ -63,14 +63,19 @@ class MultiChatServer:
                 self.exit_user_number = i
                 break
         #작성중작성중작성중##################
-        if self.exit_user_number == 1 :
-            with con:
-                with con.cursor() as cur:
+        with con:
+            with con.cursor() as cur:
+                if self.exit_user_number == 1:
                     cur.execute(f"update  from game_room_people set user_1 = '{exit_room_info[2]}',\
-                    user_2 = '{exit_room_info[3]}', user_3 ='{exit_room_info[4]}' where Number = {exit_room_info[0]}'")
-                    cur.execute("delete a from game_room_list as a left outer join game_room_people as b \
-                                on a.Number = b.Number where b.Number is null")
-                    con.commit()
+                    user_2 = '{exit_room_info[3]}', user_3 ='{exit_room_info[4]}' ,user_4 ='대기' \
+                    where Number = {exit_room_info[0]}")
+                elif self.exit_user_number == 2:
+                    cur.execute(f"update  from game_room_people set user_2 = '{exit_room_info[3]}',\
+                    user_3 = '{exit_room_info[4]}', user_4 ='대기' where Number = {exit_room_info[0]}")
+
+                cur.execute("delete a from game_room_list as a left outer join game_room_people as b \
+                            on a.Number = b.Number where b.Number is null")
+                con.commit()
 
 
     def client_join_room(self, c_socket):
