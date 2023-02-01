@@ -119,7 +119,7 @@ class MultiChatServer:
                 count = cur.execute(f"select * from kr where word = '{word}' ")
                 con.commit()
         if count > 0 :
-            tempdata = ["Next_turn", f"<SYSTEM> 다음 차례는 {self.order}번 유저입니다.",
+            tempdata = ["Next_turn", f"<SYSTEM> 이전 차례는 {self.order}번 유저입니다.",
                         f"<SYSTEM>단어는 {word}입니다.", word,new_room_turn]
             senddata = json.dumps(tempdata) + "828282"
         else :

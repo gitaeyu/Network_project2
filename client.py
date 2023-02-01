@@ -242,16 +242,16 @@ class Main(QMainWindow, form_class):
 
 
     def game_next_turn(self):
-        self.follow_up_list_widget.addItem(self.game_play_info[1])
         self.follow_up_list_widget.addItem(self.game_play_info[2])
+        self.follow_up_list_widget.addItem(self.game_play_info[1])
         self.Turn_lbl.setText(str(self.game_play_info[4]))
         self.set_user_label_stylesheet()
         self.follow_up_word_lbl.setText(self.game_play_info[3])
 
 
     def game_finish(self):
-        self.follow_up_list_widget.addItem(self.game_play_info[1])
         self.follow_up_list_widget.addItem(self.game_play_info[2])
+        self.follow_up_list_widget.addItem(self.game_play_info[1])
         self.user_1_label.setStyleSheet("background-color: #FFFFFF")
         self.user_2_label.setStyleSheet("background-color: #FFFFFF")
         self.user_3_label.setStyleSheet("background-color: #FFFFFF")
