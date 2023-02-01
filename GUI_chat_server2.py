@@ -75,6 +75,32 @@ class MultiChatServer:
         elif self.fu_game_play_info[0] == "FAIL" : #game_info = ["FAIL", rm_number, turn, current_people]
             self.fu_game_finish(c_socket)
 
+    def fu_game_finish(self,c_socket):
+        room_number = self.fu_game_play_info[1]
+        room_turn = self.fu_game_play_info[2]
+        room_people_num = self.fu_game_play_info[3]
+        word = self.fu_game_play_info[4]
+        self.order = int(room_turn) % int(room_people_num)
+        tempdata = ["Game_finish", f"<SYSTEM> 잘못된 단어를 입력 하셨습니다.",
+                    f"<SYSTEM>{self.order}번 유저의 패배 ! .", word]
+        senddata = json.dumps(tempdata) + "828282"
+        con = pymysql.connect(host='10.10.21.112', user="root3", password="123456789", db='multi_network_server',
+                              charset='utf8')
+        with con:
+            with con.cursor() as cur:
+                cur.execute(f"select * from game_room_people where Number = {room_number}")
+                selected_room_info = cur.fetchall()
+                con.commit()
+        # 채팅방에 있는 사람에게 정보를 전달함
+        i = 0
+        for id in self.idlist:  # 목록에 있는 모든 소켓에 대해
+            if id == selected_room_info[0][1] or id == selected_room_info[0][2] \
+                    or id == selected_room_info[0][3] or id == selected_room_info[0][4]:
+                client = self.clients[i]
+                socket = client[0]
+                socket.sendall(senddata.encode())
+            i += 1
+
     def fu_game_word_check(self,c_socket):
         room_number = self.fu_game_play_info[1]
         room_turn = self.fu_game_play_info[2]

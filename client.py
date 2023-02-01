@@ -58,7 +58,7 @@ class Main(QMainWindow, form_class):
             return
         elif prev_word[-1] != word[0] :
             rm_number = self.follow_up_rm_number.text()
-            game_info = ["FAIL", rm_number, turn, current_people]
+            game_info = ["FAIL", rm_number, turn, current_people,word]
             tempdata = json.dumps(game_info)
             message = tempdata + "828282"  # 게임 관련 식별 코드
             self.client_socket.send(message.encode())
