@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1024</width>
-    <height>768</height>
+    <height>961</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,14 +19,14 @@
      <x>0</x>
      <y>0</y>
      <width>1024</width>
-     <height>768</height>
+     <height>961</height>
     </rect>
    </property>
    <property name="frameShape">
     <enum>QFrame::Box</enum>
    </property>
    <property name="currentIndex">
-    <number>4</number>
+    <number>6</number>
    </property>
    <widget class="QWidget" name="page">
     <widget class="QPushButton" name="pushButton">
@@ -408,7 +408,7 @@
     </widget>
    </widget>
    <widget class="QWidget" name="page_3">
-    <widget class="QPushButton" name="pushButton_4">
+    <widget class="QPushButton" name="join_game_btn">
      <property name="geometry">
       <rect>
        <x>660</x>
@@ -525,6 +525,12 @@
        <height>551</height>
       </rect>
      </property>
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
+     <attribute name="verticalHeaderVisible">
+      <bool>false</bool>
+     </attribute>
      <column>
       <property name="text">
        <string>방 번호</string>
@@ -537,7 +543,12 @@
      </column>
      <column>
       <property name="text">
-       <string>인원</string>
+       <string>현재 인원</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>최대 인원</string>
       </property>
      </column>
      <column>
@@ -545,6 +556,45 @@
        <string>게임 종류</string>
       </property>
      </column>
+    </widget>
+    <widget class="QPushButton" name="invite_accept_btn">
+     <property name="geometry">
+      <rect>
+       <x>350</x>
+       <y>850</y>
+       <width>111</width>
+       <height>91</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>수락</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="invite_message_label">
+     <property name="geometry">
+      <rect>
+       <x>340</x>
+       <y>710</y>
+       <width>331</width>
+       <height>101</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>게임방에서 초대가 왔습니다.  수락하시겠습니까?</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="invite_reject_btn">
+     <property name="geometry">
+      <rect>
+       <x>530</x>
+       <y>850</y>
+       <width>111</width>
+       <height>91</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>거절</string>
+     </property>
     </widget>
    </widget>
    <widget class="QWidget" name="page_4">
@@ -635,7 +685,7 @@
       <string>메인</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_4">
+    <widget class="QLabel" name="follow_up_word_lbl">
      <property name="geometry">
       <rect>
        <x>40</x>
@@ -644,11 +694,16 @@
        <height>161</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <pointsize>72</pointsize>
+      </font>
+     </property>
      <property name="text">
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;&lt;span style=&quot; font-size:72pt;&quot;&gt;제시어&lt;br/&gt;&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_15">
+    <widget class="QLabel" name="user_1_label">
      <property name="geometry">
       <rect>
        <x>40</x>
@@ -667,7 +722,7 @@ border-radius:5px;
       <string>User_1</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_16">
+    <widget class="QLabel" name="user_2_label">
      <property name="geometry">
       <rect>
        <x>250</x>
@@ -686,7 +741,7 @@ border-radius:5px;
       <string>User_2</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_17">
+    <widget class="QLabel" name="user_3_label">
      <property name="geometry">
       <rect>
        <x>460</x>
@@ -705,7 +760,7 @@ border-radius:5px;
       <string>User_3</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_18">
+    <widget class="QLabel" name="user_4_label">
      <property name="geometry">
       <rect>
        <x>670</x>
@@ -724,7 +779,7 @@ border-radius:5px;
       <string>User_4</string>
      </property>
     </widget>
-    <widget class="QListWidget" name="listWidget_7">
+    <widget class="QListWidget" name="follow_up_list_widget">
      <property name="geometry">
       <rect>
        <x>40</x>
@@ -734,7 +789,7 @@ border-radius:5px;
       </rect>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit">
+    <widget class="QLineEdit" name="follow_up_send_lineEdit">
      <property name="geometry">
       <rect>
        <x>40</x>
@@ -744,7 +799,7 @@ border-radius:5px;
       </rect>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_3">
+    <widget class="QPushButton" name="follow_up_send_btn">
      <property name="geometry">
       <rect>
        <x>730</x>
@@ -757,7 +812,7 @@ border-radius:5px;
       <string>전송</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_5">
+    <widget class="QPushButton" name="follow_up_start_btn">
      <property name="geometry">
       <rect>
        <x>880</x>
@@ -781,6 +836,123 @@ border-radius:5px;
      </property>
      <property name="text">
       <string>초대하기</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="follow_up_rm_number">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>20</y>
+       <width>56</width>
+       <height>12</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>0</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_15">
+     <property name="geometry">
+      <rect>
+       <x>760</x>
+       <y>25</y>
+       <width>101</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>현재인원</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_16">
+     <property name="geometry">
+      <rect>
+       <x>870</x>
+       <y>30</y>
+       <width>101</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>최대 인원</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="current_people_lbl">
+     <property name="geometry">
+      <rect>
+       <x>760</x>
+       <y>60</y>
+       <width>101</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>현재인원</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="max_people_lbl">
+     <property name="geometry">
+      <rect>
+       <x>867</x>
+       <y>64</y>
+       <width>101</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>4명</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="Turn_lbl">
+     <property name="geometry">
+      <rect>
+       <x>270</x>
+       <y>20</y>
+       <width>56</width>
+       <height>12</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>1</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="Turn_lbl_2">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>20</y>
+       <width>56</width>
+       <height>12</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>턴</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_4">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>50</y>
+       <width>56</width>
+       <height>12</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>내 ID</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="client_id_lbl">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>50</y>
+       <width>56</width>
+       <height>12</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>ID</string>
      </property>
     </widget>
    </widget>
