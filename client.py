@@ -35,9 +35,11 @@ class Main(QMainWindow, form_class):
         self.invite_message_label.hide()
         self.invite_accept_btn.hide()
         self.invite_reject_btn.hide()
+        self.follow_up_send_lineEdit.setText("")
         self.follow_up_send_btn.clicked.connect(self.word_send)
 
     def word_send(self):
+
         prev_word = self.follow_up_word_lbl.text()
         word = self.follow_up_send_lineEdit.text()
         if self.client_id_lbl.text() == self.user_1_label.text() :

@@ -72,7 +72,7 @@ class MultiChatServer:
             self.fu_game_start(c_socket)
         elif self.fu_game_play_info[0] == "CHECK" : # game_info = ["CHECK", rm_number, turn, current_people,word]
             self.fu_game_word_check(c_socket)
-        elif self.fu_game_play_info[0] == "FAIL" : #game_info = ["FAIL", rm_number, turn, current_people]
+        elif self.fu_game_play_info[0] == "FAIL" : #game_info = ["FAIL", rm_number, turn, current_people,word]
             self.fu_game_finish(c_socket)
 
     def fu_game_finish(self,c_socket):
