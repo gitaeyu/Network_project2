@@ -26,14 +26,14 @@
     <enum>QFrame::Box</enum>
    </property>
    <property name="currentIndex">
-    <number>6</number>
+    <number>4</number>
    </property>
    <widget class="QWidget" name="page">
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="main_chat_btn">
      <property name="geometry">
       <rect>
-       <x>100</x>
-       <y>260</y>
+       <x>290</x>
+       <y>450</y>
        <width>101</width>
        <height>51</height>
       </rect>
@@ -42,37 +42,11 @@
       <string>자유 채팅방</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_2">
-     <property name="geometry">
-      <rect>
-       <x>270</x>
-       <y>260</y>
-       <width>101</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>게임</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_8">
-     <property name="geometry">
-      <rect>
-       <x>100</x>
-       <y>330</y>
-       <width>301</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>ID를 생성해야 채팅방, 게임 입장 가능</string>
-     </property>
-    </widget>
     <widget class="QPushButton" name="main_login_btn">
      <property name="geometry">
       <rect>
-       <x>230</x>
-       <y>20</y>
+       <x>420</x>
+       <y>210</y>
        <width>75</width>
        <height>23</height>
       </rect>
@@ -84,8 +58,8 @@
     <widget class="QPushButton" name="main_sign_in_btn">
      <property name="geometry">
       <rect>
-       <x>310</x>
-       <y>20</y>
+       <x>500</x>
+       <y>210</y>
        <width>75</width>
        <height>23</height>
       </rect>
@@ -94,20 +68,110 @@
       <string>회원가입</string>
      </property>
     </widget>
+    <widget class="QLabel" name="main_login_label">
+     <property name="geometry">
+      <rect>
+       <x>420</x>
+       <y>240</y>
+       <width>331</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>####</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="fu_game_move">
+     <property name="geometry">
+      <rect>
+       <x>430</x>
+       <y>450</y>
+       <width>101</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>기태 게임</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="main_game2_btn">
+     <property name="geometry">
+      <rect>
+       <x>550</x>
+       <y>450</y>
+       <width>101</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>현도 게임</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="login_label2">
+     <property name="geometry">
+      <rect>
+       <x>300</x>
+       <y>510</y>
+       <width>301</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>###</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="page_6">
+    <widget class="QPushButton" name="show_main1">
+     <property name="geometry">
+      <rect>
+       <x>370</x>
+       <y>500</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>메인</string>
+     </property>
+    </widget>
     <widget class="QWidget" name="gridLayoutWidget">
      <property name="geometry">
       <rect>
-       <x>70</x>
-       <y>210</y>
+       <x>260</x>
+       <y>250</y>
        <width>321</width>
        <height>80</height>
       </rect>
      </property>
      <layout class="QGridLayout" name="gridLayout">
+      <item row="1" column="2">
+       <widget class="QPushButton" name="login_btn">
+        <property name="text">
+         <string>로그인</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="login_id_edit">
+        <property name="text">
+         <string>이현도</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_10">
+        <property name="text">
+         <string>비밀번호</string>
+        </property>
+       </widget>
+      </item>
       <item row="1" column="1">
-       <widget class="QLineEdit" name="login_pw_lineEdit"/>
+       <widget class="QLineEdit" name="login_password_edit">
+        <property name="text">
+         <string>123</string>
+        </property>
+       </widget>
       </item>
       <item row="0" column="0">
        <widget class="QLabel" name="label_5">
@@ -122,26 +186,18 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_10">
+      <item row="2" column="2">
+       <widget class="QLabel" name="login_label">
         <property name="text">
-         <string>비밀번호</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="login_id_lineEdit"/>
-      </item>
-      <item row="1" column="2">
-       <widget class="QPushButton" name="login_btn">
-        <property name="text">
-         <string>로그인</string>
+         <string/>
         </property>
        </widget>
       </item>
      </layout>
     </widget>
-    <widget class="QPushButton" name="show_main1">
+   </widget>
+   <widget class="QWidget" name="page_7">
+    <widget class="QPushButton" name="show_main2">
      <property name="geometry">
       <rect>
        <x>370</x>
@@ -154,18 +210,23 @@
       <string>메인</string>
      </property>
     </widget>
-   </widget>
-   <widget class="QWidget" name="page_7">
     <widget class="QWidget" name="gridLayoutWidget_2">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>180</y>
+       <x>270</x>
+       <y>250</y>
        <width>401</width>
-       <height>106</height>
+       <height>126</height>
       </rect>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="id_edit">
+        <property name="text">
+         <string>이현도</string>
+        </property>
+       </widget>
+      </item>
       <item row="1" column="0">
        <widget class="QLabel" name="label_12">
         <property name="text">
@@ -176,11 +237,19 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="lineEdit_7"/>
-      </item>
       <item row="1" column="1">
-       <widget class="QLineEdit" name="lineEdit_6"/>
+       <widget class="QLineEdit" name="password1_edit">
+        <property name="text">
+         <string>123</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_13">
+        <property name="text">
+         <string>비밀번호 재확인</string>
+        </property>
+       </widget>
       </item>
       <item row="0" column="0">
        <widget class="QLabel" name="label_11">
@@ -195,52 +264,128 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="label_13">
+      <item row="3" column="2">
+       <widget class="QPushButton" name="sign_btn">
         <property name="text">
-         <string>비밀번호 재확인</string>
+         <string>가입하기</string>
         </property>
        </widget>
       </item>
       <item row="0" column="2">
-       <widget class="QPushButton" name="login_btn_3">
+       <widget class="QPushButton" name="id_same_btn">
         <property name="text">
          <string>아이디 중복확인</string>
         </property>
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QLineEdit" name="lineEdit_8"/>
-      </item>
-      <item row="3" column="2">
-       <widget class="QPushButton" name="login_btn_2">
+       <widget class="QLineEdit" name="password2_edit">
         <property name="text">
-         <string>가입하기</string>
+         <string>123</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QLabel" name="id_same_label">
+        <property name="text">
+         <string>아이디 중복 NG</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="2">
+       <widget class="QLabel" name="sign_label">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </item>
      </layout>
     </widget>
-    <widget class="QPushButton" name="show_main2">
+   </widget>
+   <widget class="QWidget" name="page_2">
+    <widget class="QLabel" name="label_2">
      <property name="geometry">
       <rect>
-       <x>370</x>
-       <y>500</y>
+       <x>230</x>
+       <y>130</y>
+       <width>91</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>접속 인원</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>90</y>
+       <width>81</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>자유채팅방</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_14">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>250</y>
+       <width>91</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>채팅방 목록</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="room_add_btn">
+     <property name="geometry">
+      <rect>
+       <x>540</x>
+       <y>360</y>
        <width>75</width>
        <height>23</height>
       </rect>
      </property>
      <property name="text">
-      <string>메인</string>
+      <string>추가</string>
      </property>
     </widget>
-   </widget>
-   <widget class="QWidget" name="page_2">
+    <widget class="QLineEdit" name="text_edit">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>610</y>
+       <width>301</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QListWidget" name="connect_person_list">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>150</y>
+       <width>381</width>
+       <height>51</height>
+      </rect>
+     </property>
+    </widget>
     <widget class="QLineEdit" name="chat_room_add_edit">
      <property name="geometry">
       <rect>
-       <x>380</x>
-       <y>340</y>
+       <x>420</x>
+       <y>360</y>
        <width>113</width>
        <height>20</height>
       </rect>
@@ -252,8 +397,8 @@
     <widget class="QPushButton" name="send_btn">
      <property name="geometry">
       <rect>
-       <x>500</x>
-       <y>590</y>
+       <x>540</x>
+       <y>610</y>
        <width>75</width>
        <height>23</height>
       </rect>
@@ -262,122 +407,11 @@
       <string>보내기</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="room_add_btn">
-     <property name="geometry">
-      <rect>
-       <x>500</x>
-       <y>340</y>
-       <width>75</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>추가</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_14">
-     <property name="geometry">
-      <rect>
-       <x>190</x>
-       <y>230</y>
-       <width>91</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>채팅방 목록</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="name_edit">
-     <property name="geometry">
-      <rect>
-       <x>260</x>
-       <y>70</y>
-       <width>113</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>이현도</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="test_btn">
-     <property name="geometry">
-      <rect>
-       <x>380</x>
-       <y>620</y>
-       <width>75</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>test</string>
-     </property>
-    </widget>
-    <widget class="QListWidget" name="text_view">
-     <property name="geometry">
-      <rect>
-       <x>190</x>
-       <y>390</y>
-       <width>381</width>
-       <height>191</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label">
-     <property name="geometry">
-      <rect>
-       <x>190</x>
-       <y>70</y>
-       <width>81</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>자유채팅방</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_2">
-     <property name="geometry">
-      <rect>
-       <x>190</x>
-       <y>110</y>
-       <width>91</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>접속 인원</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="test_btn2">
-     <property name="geometry">
-      <rect>
-       <x>590</x>
-       <y>340</y>
-       <width>75</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>test2</string>
-     </property>
-    </widget>
-    <widget class="QListWidget" name="chat_room_list">
-     <property name="geometry">
-      <rect>
-       <x>190</x>
-       <y>250</y>
-       <width>381</width>
-       <height>81</height>
-      </rect>
-     </property>
-    </widget>
     <widget class="QPushButton" name="show_main3">
      <property name="geometry">
       <rect>
-       <x>620</x>
-       <y>650</y>
+       <x>660</x>
+       <y>670</y>
        <width>75</width>
        <height>23</height>
       </rect>
@@ -386,24 +420,37 @@
       <string>메인</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="text_edit">
+    <widget class="QListWidget" name="chat_room_list">
      <property name="geometry">
       <rect>
-       <x>190</x>
-       <y>590</y>
-       <width>301</width>
-       <height>20</height>
+       <x>230</x>
+       <y>270</y>
+       <width>381</width>
+       <height>81</height>
       </rect>
      </property>
     </widget>
-    <widget class="QListWidget" name="listWidget">
+    <widget class="QListWidget" name="chat_view_list">
      <property name="geometry">
       <rect>
-       <x>190</x>
-       <y>130</y>
+       <x>230</x>
+       <y>410</y>
        <width>381</width>
-       <height>51</height>
+       <height>191</height>
       </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="test_btn2">
+     <property name="geometry">
+      <rect>
+       <x>540</x>
+       <y>240</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>채팅방 조회</string>
      </property>
     </widget>
    </widget>
@@ -598,34 +645,83 @@
     </widget>
    </widget>
    <widget class="QWidget" name="page_4">
-    <widget class="QLabel" name="label_6">
+    <widget class="QListWidget" name="connect_person_list2">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>40</y>
+       <x>260</x>
+       <y>150</y>
+       <width>381</width>
+       <height>51</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_8">
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>100</y>
        <width>91</width>
        <height>16</height>
       </rect>
      </property>
      <property name="text">
-      <string>스무 고개</string>
+      <string>공룡게임</string>
      </property>
     </widget>
-    <widget class="QListWidget" name="listWidget_6">
+    <widget class="QListWidget" name="connect_person_list3">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>160</y>
+       <x>260</x>
+       <y>240</y>
        <width>381</width>
-       <height>91</height>
+       <height>51</height>
       </rect>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_11">
+    <widget class="QLabel" name="attend_label">
      <property name="geometry">
       <rect>
-       <x>330</x>
-       <y>290</y>
+       <x>660</x>
+       <y>160</y>
+       <width>56</width>
+       <height>12</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>##</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="show_main5">
+     <property name="geometry">
+      <rect>
+       <x>670</x>
+       <y>670</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>메인</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="game_start_btn">
+     <property name="geometry">
+      <rect>
+       <x>660</x>
+       <y>270</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>게임 시작</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="game_chat_btn">
+     <property name="geometry">
+      <rect>
+       <x>570</x>
+       <y>550</y>
        <width>75</width>
        <height>23</height>
       </rect>
@@ -634,27 +730,63 @@
       <string>보내기</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_4">
+    <widget class="QLineEdit" name="text_edit2">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>290</y>
-       <width>291</width>
+       <x>260</x>
+       <y>550</y>
+       <width>301</width>
        <height>20</height>
       </rect>
      </property>
     </widget>
-    <widget class="QPushButton" name="show_main5">
+    <widget class="QLabel" name="label_17">
      <property name="geometry">
       <rect>
-       <x>370</x>
-       <y>500</y>
+       <x>260</x>
+       <y>220</y>
+       <width>91</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>게임 참가 인원</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_18">
+     <property name="geometry">
+      <rect>
+       <x>260</x>
+       <y>130</y>
+       <width>91</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>접속 인원</string>
+     </property>
+    </widget>
+    <widget class="QListWidget" name="chat_view_list2">
+     <property name="geometry">
+      <rect>
+       <x>260</x>
+       <y>330</y>
+       <width>381</width>
+       <height>191</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="attend_btn">
+     <property name="geometry">
+      <rect>
+       <x>660</x>
+       <y>180</y>
        <width>75</width>
        <height>23</height>
       </rect>
      </property>
      <property name="text">
-      <string>메인</string>
+      <string>참가요청</string>
      </property>
     </widget>
    </widget>

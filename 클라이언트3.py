@@ -22,7 +22,9 @@ class Main(QMainWindow, form_class):
         self.send_btn.clicked.connect(self.send_chat)
         self.room_add_btn.clicked.connect(self.add_chat_room)
         self.chat_room_list.clicked.connect(self.chat_view)
+
         self.test_btn2.clicked.connect(self.chat_list_view)
+
         self.main_login_btn.clicked.connect(self.show_login)
         self.main_sign_in_btn.clicked.connect(self.show_sign_in)
         self.main_chat_btn.clicked.connect(self.show_chat)
@@ -32,6 +34,7 @@ class Main(QMainWindow, form_class):
         self.show_main3.clicked.connect(self.show_main)
         self.show_main4.clicked.connect(self.show_main)
         self.show_main5.clicked.connect(self.show_main)
+        self.show_main6.clicked.connect(self.show_main)
 
         self.id_same_check = False
         self.id_same_btn.clicked.connect(self.id_same)
@@ -175,6 +178,11 @@ class Main(QMainWindow, form_class):
         self.exit_game_room()
         self.client_socket.send((self.user_id+"006").encode('utf-8'))
         self.client_socket.send("!@$#@#Socke@$close".encode())
+        # self.Thread_exit = True
+        # close_msg = (f"{self.login_user_id}/!&%*|CLOSE|*%&!").encode()
+        # print('exit')
+        # self.client_socket.send(close_msg)
+        # print(close_msg)
         self.client_socket.close()
         QCloseEvent.accept()
 

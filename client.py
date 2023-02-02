@@ -138,7 +138,7 @@ class Main(QMainWindow, form_class):
         send_message = tempdata + "654321"
         self.client_socket.send(send_message.encode())
         print('success')
-        self.stackedWidget.setCurrentIndex(4)
+
 
     def initialize_socket(self,ip,port):
         '''
