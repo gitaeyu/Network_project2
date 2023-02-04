@@ -36,7 +36,8 @@ class MultiChatServer:
         # 여러 클라이언트들을 관리할 리스트를 만들어 준다.
         self.clients = []
         # 마지막으로 받은 메세지가 없는 경우를 대비해서 ""로 지정해줌.
-        self.final_received_message = ""  # 최종 수신 메시지
+        self.final_received_message_gt\
+            = ""  # 최종 수신 메시지
         self.idlist = []
 
     def signal_interaction(self, c_socket):
@@ -46,11 +47,10 @@ class MultiChatServer:
             except:
                 pass
             else:
-                print(self.recv_signal.decode())
                 if self.recv_signal.decode()[-6:] == "654321":
                     self.login_check(c_socket)
                 elif self.recv_signal.decode()[-6:] == "123456":
-                    self.receive_messages(c_socket)
+                    self.receive_messages_gt(c_socket)
                 elif self.recv_signal.decode()[-6:] == "753357":
                     self.invite_signal_send(c_socket)
                 elif self.recv_signal.decode()[-6:] == "000008":
@@ -72,8 +72,37 @@ class MultiChatServer:
             self.fu_game_start(c_socket)
         elif self.fu_game_play_info[0] == "CHECK" : # game_info = ["CHECK", rm_number, turn, current_people,word]
             self.fu_game_word_check(c_socket)
-        elif self.fu_game_play_info[0] == "FAIL" : #game_info = ["FAIL", rm_number, turn, current_people]
+        elif self.fu_game_play_info[0] == "FAIL" : #game_info = ["FAIL", rm_number, turn, current_people,word]
             self.fu_game_finish(c_socket)
+
+    def fu_game_finish(self,c_socket):
+        room_number = self.fu_game_play_info[1]
+        room_turn = self.fu_game_play_info[2]
+        room_people_num = self.fu_game_play_info[3]
+        word = self.fu_game_play_info[4]
+        self.order = int(room_turn) % int(room_people_num)
+        tempdata = ["Game_finish", f"<SYSTEM> 잘못된 단어를 입력 하셨습니다.",
+                    f"<SYSTEM>{self.order}번 유저의 패배 ! .", word]
+        senddata = json.dumps(tempdata) + "828282"
+        con = pymysql.connect(host='10.10.21.112', user="root3", password="123456789", db='multi_network_server',
+                              charset='utf8')
+        with con:
+            with con.cursor() as cur:
+                cur.execute(f"select * from game_room_people where Number = {room_number}")
+                selected_room_info = cur.fetchall()
+                cur.execute(f"insert into fu_game_result (result{self.order}, id_1, id_2, id_3, id_4) values \
+                            ('패배','{selected_room_info[0][1]}','{selected_room_info[0][2]}','{selected_room_info[0][3]}'\
+                            ,'{selected_room_info[0][4]}')")
+                con.commit()
+        # 채팅방에 있는 사람에게 정보를 전달함
+        i = 0
+        for id in self.idlist:  # 목록에 있는 모든 소켓에 대해
+            if id == selected_room_info[0][1] or id == selected_room_info[0][2] \
+                    or id == selected_room_info[0][3] or id == selected_room_info[0][4]:
+                client = self.clients[i]
+                socket = client[0]
+                socket.sendall(senddata.encode())
+            i += 1
 
     def fu_game_word_check(self,c_socket):
         room_number = self.fu_game_play_info[1]
@@ -93,13 +122,23 @@ class MultiChatServer:
                 count = cur.execute(f"select * from kr where word = '{word}' ")
                 con.commit()
         if count > 0 :
-            tempdata = ["Next_turn", f"<SYSTEM> 다음 차례는 {self.order}번 유저입니다.",
+            tempdata = ["Next_turn", f"<SYSTEM> 이전 차례는 {self.order}번 유저입니다.",
                         f"<SYSTEM>단어는 {word}입니다.", word,new_room_turn]
             senddata = json.dumps(tempdata) + "828282"
         else :
             tempdata = ["Game_finish", f"<SYSTEM> 잘못된 단어를 입력 하셨습니다.",
                         f"<SYSTEM>{self.order}번 유저의 패배 ! .", word]
             senddata = json.dumps(tempdata) + "828282"
+            con = pymysql.connect(host='10.10.21.112', user="root3", password="123456789", db='multi_network_server',
+                                  charset='utf8')
+            with con:
+                with con.cursor() as cur:
+                    cur.execute(f"select * from game_room_people where Number = {room_number}")
+                    selected_room_info = cur.fetchall()
+                    cur.execute(f"insert into fu_game_result (result{self.order}, id_1, id_2, id_3, id_4) values \
+                                ('패배','{selected_room_info[0][1]}','{selected_room_info[0][2]}','{selected_room_info[0][3]}'\
+                                ,'{selected_room_info[0][4]}')")
+                    con.commit()
 
         # 채팅방에 있는 사람에게 정보를 전달함
         i = 0
@@ -147,7 +186,6 @@ class MultiChatServer:
             if exit_room_info[i] == exit_room_info[5] :
                 self.exit_user_number = i
                 break
-
         with con:
             with con.cursor() as cur:
                 if self.exit_user_number == 1:
@@ -174,8 +212,9 @@ class MultiChatServer:
                 con.commit()
                 tempdata = json.dumps(rows)
                 senddata = tempdata + "000009"
-                self.final_received_message = senddata
-                self.send_all_clients(c_socket)
+                self.final_received_message_gt\
+                    = senddata
+                self.send_all_clients_gt(c_socket)
                 if selected_room_info != () :
                     tempdata = json.dumps(selected_room_info[0])
                     gr_info = tempdata + "000010" #방 정보 식별 코드
@@ -210,8 +249,9 @@ class MultiChatServer:
                 con.commit()
                 tempdata = json.dumps(rows)
                 senddata = tempdata + "000009"
-                self.final_received_message = senddata
-                self.send_all_clients(c_socket)
+                self.final_received_message_gt\
+                    = senddata
+                self.send_all_clients_gt(c_socket)
                 tempdata = json.dumps(selected_room_info[0])
                 gr_info = tempdata + "000010" #방 정보 식별 코드
         # 채팅방에 있는 사람에게 정보를 전달함
@@ -254,8 +294,9 @@ class MultiChatServer:
                 print(tempdata)
                 senddata = tempdata + "000009"
                 print(senddata)
-                self.final_received_message = senddata
-                self.send_all_clients(c_socket)
+                self.final_received_message_gt\
+                    = senddata
+                self.send_all_clients_gt(c_socket)
                 tempdata = json.dumps(game_room_info[0])
                 gr_info = tempdata + "000010"
                 c_socket.sendall(gr_info.encode())
@@ -319,13 +360,15 @@ class MultiChatServer:
         except:
             print("리시브 메시지 오류발생")
         else:
-            self.final_received_message = senddata
-            print(self.final_received_message, "파이널리시브")
-            self.send_all_clients(c_socket)
+            self.final_received_message_gt\
+                = senddata
+            print(self.final_received_message_gt
+                  , "파이널리시브")
+            self.send_all_clients_gt(c_socket)
             self.send_room_info(c_socket)
 
     # 데이터를 수신하여 모든 클라이언트에게 전송한다.
-    def receive_messages(self, c_socket):
+    def receive_messages_gt(self, c_socket):
         print(c_socket, "c_socket 프린트")
         try:
             incoming_message = self.recv_signal
@@ -333,17 +376,20 @@ class MultiChatServer:
         except:
             print("리시브 메시지 오류발생")
         else:
-            self.final_received_message = incoming_message.decode('utf-8')
-            print(self.final_received_message, "파이널리시브")
-            self.send_all_clients(c_socket)
+            self.final_received_message_gt\
+                = incoming_message.decode('utf-8')
+            print(self.final_received_message_gt
+                  , "파이널리시브")
+            self.send_all_clients_gt(c_socket)
 
     # 송신 클라이언트를 제외한 모든 클라이언트에게 메세지 전송
-    def send_all_clients(self, senders_socket):
+    def send_all_clients_gt(self, senders_socket):
         for client in self.clients:  # 목록에 있는 모든 소켓에 대해
             print(client, "고객")
             socket, (ip, port) = client
             try:
-                socket.sendall(self.final_received_message.encode())
+                socket.sendall(self.final_received_message_gt
+                               .encode())
             except:  # 연결종료
                 self.clients.remove(client)  # 소켓 제거
                 print(f"{ip},{port} 연결이 종료 되었습니다.")
@@ -366,8 +412,9 @@ class MultiChatServer:
                 except:
                     print("리시브 메시지 오류발생")
                 else:
-                    self.final_received_message = senddata
-                    self.send_all_clients(c_socket)
+                    self.final_received_message_gt\
+                        = senddata
+                    self.send_all_clients_gt(c_socket)
                 break
             i += 1
 

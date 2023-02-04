@@ -35,9 +35,11 @@ class Main(QMainWindow, form_class):
         self.invite_message_label.hide()
         self.invite_accept_btn.hide()
         self.invite_reject_btn.hide()
+        self.follow_up_send_lineEdit.setText("")
         self.follow_up_send_btn.clicked.connect(self.word_send)
 
     def word_send(self):
+
         prev_word = self.follow_up_word_lbl.text()
         word = self.follow_up_send_lineEdit.text()
         if self.client_id_lbl.text() == self.user_1_label.text() :
@@ -58,7 +60,7 @@ class Main(QMainWindow, form_class):
             return
         elif prev_word[-1] != word[0] :
             rm_number = self.follow_up_rm_number.text()
-            game_info = ["FAIL", rm_number, turn, current_people]
+            game_info = ["FAIL", rm_number, turn, current_people,word]
             tempdata = json.dumps(game_info)
             message = tempdata + "828282"  # 게임 관련 식별 코드
             self.client_socket.send(message.encode())
@@ -136,7 +138,7 @@ class Main(QMainWindow, form_class):
         send_message = tempdata + "654321"
         self.client_socket.send(send_message.encode())
         print('success')
-        self.stackedWidget.setCurrentIndex(4)
+
 
     def initialize_socket(self,ip,port):
         '''
@@ -240,16 +242,16 @@ class Main(QMainWindow, form_class):
 
 
     def game_next_turn(self):
-        self.follow_up_list_widget.addItem(self.game_play_info[1])
         self.follow_up_list_widget.addItem(self.game_play_info[2])
+        self.follow_up_list_widget.addItem(self.game_play_info[1])
         self.Turn_lbl.setText(str(self.game_play_info[4]))
         self.set_user_label_stylesheet()
         self.follow_up_word_lbl.setText(self.game_play_info[3])
 
 
     def game_finish(self):
-        self.follow_up_list_widget.addItem(self.game_play_info[1])
         self.follow_up_list_widget.addItem(self.game_play_info[2])
+        self.follow_up_list_widget.addItem(self.game_play_info[1])
         self.user_1_label.setStyleSheet("background-color: #FFFFFF")
         self.user_2_label.setStyleSheet("background-color: #FFFFFF")
         self.user_3_label.setStyleSheet("background-color: #FFFFFF")
