@@ -60,7 +60,7 @@ class MultiChatServer:
                 print(self.final_received_message)
                 # DB에 수신 메시지 넣어줌
                 if self.final_received_message[-3:] == '000':
-                    ###################################################### Data base 접속 start
+                    # DB 접속
                     con = pymysql.connect(host=host_str, user=user_str, password=password_str,
                                           db='multi_network_server', charset='utf8')
                     with con:
@@ -68,7 +68,7 @@ class MultiChatServer:
                             sql = f"INSERT INTO {self.room_select} values('{self.final_received_message[:-3]}')"
                             cur.execute(sql)
                             con.commit()
-                    ###################################################### Data base 접속 end
+                    # DB 연결
                 if self.final_received_message[-3:] in ('000', '010', '011'):  # 채팅창 불러오기 code
                     self.send_all_clients(socket)
                 elif self.final_received_message[-3:] == '001':  # 채팅창 불러오기 code
